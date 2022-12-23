@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Note Book</string>
+    <string name="developers">Developed \n By Team Bloopers </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint"> ...Type your note here</string>
+</resources>
