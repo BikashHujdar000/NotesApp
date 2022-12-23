@@ -46,10 +46,11 @@
 
                 <EditText
                     android:id="@+id/edit_title"
+                    android:background="@drawable/title_back"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:fontFamily="@font/poppins_bold"
+                    android:fontFamily="@font/poppins_regular"
                     android:inputType="textPersonName"
                     android:hint="Title" />
 

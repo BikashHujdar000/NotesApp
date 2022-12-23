@@ -12,9 +12,10 @@ import com.example.notebook.Fragments.HomeFragmentDirections
 import com.example.notebook.R
 import com.example.notebook.model.Notes
 
-class NoteAdapter(val context :Context,private var notes:ArrayList<Notes>) :RecyclerView.Adapter<NoteAdapter.MyViewHolder>() {
+class NoteAdapter(val context :Context, var notes:ArrayList<Notes>) :RecyclerView.Adapter<NoteAdapter.MyViewHolder>() {
 
   fun SearchList(newList:ArrayList<Notes>){
+
       notes = newList
       notifyDataSetChanged()
   }

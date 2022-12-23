@@ -29,10 +29,13 @@
 
 
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
+        android:textStyle="bold"
+        android:fontFamily="@font/poppins_regular"
         android:id="@+id/title"
         android:text="Title"/>
     <TextView
@@ -41,6 +44,7 @@
         android:layout_height="wrap_content"
       android:fontFamily="@font/poppins_regular"
         android:id="@+id/notes"
+        android:textSize="12sp"
         android:text="This is my first Npte"/>
 
 
@@ -50,8 +54,11 @@
 
                 <TextView
                     android:id="@+id/dateTime"
+                    android:layout_height="8sp"
+                    android:textSize="7sp"
+                    android:text="2000"
+                    android:layout_gravity="right"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

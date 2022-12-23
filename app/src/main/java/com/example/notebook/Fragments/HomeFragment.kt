@@ -22,10 +22,10 @@ import com.example.notebook.databinding.FragmentHomeBinding
 import com.example.notebook.model.Notes
 
 
-class HomeFragment : Fragment(),MenuProvider{
+class HomeFragment : Fragment(){
 
-    lateinit var  binding:FragmentHomeBinding
-    lateinit var  toolbar: Toolbar
+    lateinit var  binding: FragmentHomeBinding
+  //  lateinit var  toolbar: Toolbar
     lateinit var  adapter: NoteAdapter
     var  oldnoteList = ArrayList<Notes>()
     private  val notesViewModel :NotesViewModel by viewModels()
@@ -34,21 +34,20 @@ class HomeFragment : Fragment(),MenuProvider{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setHasOptionsMenu(true)
          // new way to show menu
        //Activity()?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
-        activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
+      // activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
         binding = FragmentHomeBinding.inflate(layoutInflater,container,false)
 
         // making common layput manager
         // Inflate the layout for this fragment
         // we do work under here for home Fragment
-        toolbar = binding.toolbar2
+      // toolbar = binding.toolbar
        // way to declare toolbar in fragment
-        (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+        //(activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
 
        notesViewModel.getAllNotes().observe(viewLifecycleOwner, Observer {
-
+           oldnoteList= it as ArrayList<Notes>
           binding.homeRecyclerview.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
           adapter = NoteAdapter(requireContext(), it as ArrayList<Notes>)
            binding.homeRecyclerview.adapter = adapter
@@ -60,6 +59,7 @@ class HomeFragment : Fragment(),MenuProvider{
         binding.filterFinance.setOnClickListener {
             val resultData = notesViewModel.getFinanceNotes("Finance")
           resultData.observe(viewLifecycleOwner, Observer {
+              oldnoteList= it as ArrayList<Notes>
               adapter = NoteAdapter(requireContext(), it as ArrayList<Notes>)
               binding.homeRecyclerview.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
               binding.homeRecyclerview.adapter= adapter
@@ -67,7 +67,8 @@ class HomeFragment : Fragment(),MenuProvider{
         }
         binding.filterSchedule.setOnClickListener {
             val resultData= notesViewModel.getScheduleNotes("Schedule")
-            resultData.observe(viewLifecycleOwner, Observer {
+               resultData.observe(viewLifecycleOwner, Observer {
+                   oldnoteList= it as ArrayList<Notes>
                 adapter = NoteAdapter(requireContext(),it as ArrayList<Notes>)
                 binding.homeRecyclerview.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
                 binding.homeRecyclerview.adapter= adapter
@@ -78,6 +79,7 @@ class HomeFragment : Fragment(),MenuProvider{
 
             val resultData= notesViewModel.getScheduleNotes("To-Do")
             resultData.observe(viewLifecycleOwner, Observer {
+                oldnoteList= it as ArrayList<Notes>
                 adapter = NoteAdapter(requireContext(),it as ArrayList<Notes>)
                 binding.homeRecyclerview.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
                 binding.homeRecyclerview.adapter= adapter
@@ -87,6 +89,7 @@ class HomeFragment : Fragment(),MenuProvider{
         binding.filterQuotes.setOnClickListener {
             val resultData = notesViewModel.getQuotesNotes("Quotes")
             resultData.observe(viewLifecycleOwner, Observer {
+                oldnoteList= it as ArrayList<Notes>
                 adapter = NoteAdapter(requireContext(),it as ArrayList<Notes>)
                 binding.homeRecyclerview.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
                 binding.homeRecyclerview.adapter= adapter
@@ -97,6 +100,7 @@ class HomeFragment : Fragment(),MenuProvider{
         binding.filterBasic.setOnClickListener {
             val resultData = notesViewModel.getBasicNotes("Basic")
             resultData.observe(viewLifecycleOwner, Observer {
+                oldnoteList= it as ArrayList<Notes>
                 adapter = NoteAdapter(requireContext(),it as ArrayList<Notes>)
                 binding.homeRecyclerview.layoutManager= StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
                 binding.homeRecyclerview.adapter= adapter
@@ -108,6 +112,7 @@ class HomeFragment : Fragment(),MenuProvider{
         binding.filterAll.setOnClickListener{
 
             notesViewModel.getAllNotes().observe(viewLifecycleOwner, Observer {
+                oldnoteList= it as ArrayList<Notes>
 
                 binding.homeRecyclerview.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
                 adapter = NoteAdapter(requireContext(), it as ArrayList<Notes>)
@@ -117,26 +122,36 @@ class HomeFragment : Fragment(),MenuProvider{
 
         }
 
-
         binding.addNote.setOnClickListener {
           Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_creteFragment)
             //Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_editFragment)
         }
+        binding.searViewNew.setOnQueryTextListener(object :OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                NoteFind(newText)
+                return true
+            }
+        })
 
 
         return binding.root
     }
 
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menuInflater.inflate(R.menu.home_menu_items,menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-
-
-
-
-        return  true
+    private fun NoteFind(newText: String?) {
+        Log.d("data","data is $newText")
+        val newFilterdList = arrayListOf<Notes>()
+        for (i in oldnoteList){
+            if(i.title.contains(newText!!))
+            {
+                newFilterdList.add(i)
+            }
+        }
+        adapter.SearchList(newFilterdList)
 
     }
 
