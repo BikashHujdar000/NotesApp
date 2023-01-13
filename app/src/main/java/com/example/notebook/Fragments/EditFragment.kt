@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.fontResource
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -37,12 +38,14 @@ class EditFragment : Fragment(),MenuProvider{
     lateinit var toolbar: Toolbar
 
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
 
     ): View? {
+
         activity?.addMenuProvider(this,viewLifecycleOwner,Lifecycle.State.RESUMED)
 
         binding = FragmentEditBinding.inflate(layoutInflater, container, false)

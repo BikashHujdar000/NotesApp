@@ -37,14 +37,13 @@
                 android:id="@+id/imageView"
                 android:layout_width="47dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="48dp"
+                android:layout_marginEnd="24dp"
                 android:background="@drawable/profileimage"
                 android:src="@drawable/profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.363" />
-
+                app:layout_constraintVertical_bias="0.375" />
 
             <TextView
                 android:layout_width="160dp"
@@ -106,7 +105,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topLayout"
@@ -209,7 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="25dp" />
 
 
         </LinearLayout>
